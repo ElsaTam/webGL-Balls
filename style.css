@@ -1,0 +1,104 @@
+body{
+	text-align: center;
+}
+
+#content{
+	margin: auto;
+	display: inline-block;
+}
+
+.ctrlDiv{
+	border: solid 1px black;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+button {
+	border-radius: 5px;
+	border-color: grey;
+	background-color: lightgray;
+	border-style: solid;
+	border-width: 1px;
+	padding: 4px 8px;
+	cursor: pointer;
+}
+button:hover {
+	background-color: lightcyan;
+}
+
+.blockBtn{
+	display: block;
+	width: 80%;
+	margin: 5px auto;
+}
+
+#WebGL-test{
+	border: none;
+}
+
+#mainDiv{
+	display: inline-block;
+	margin-left: 20px;
+	margin-right: 20px;
+	border: 2px solide blue;
+	text-align: center;
+}
+
+#WebGL-joystick{
+	border: none;
+}
+
+#joystickDiv{
+	text-align: center;
+}
+
+#rightDiv{
+	display: inline-block;
+	vertical-align: top;
+}
+
+#inputsDiv{
+	display: inline-block;
+	vertical-align: top;
+}
+
+#resetDiv{
+	margin-bottom: 30px;
+}
+
+#resetDiv button{
+	display: block;
+	width: 80%;
+	margin: auto;
+	font-size: 32px;
+	cursor: pointer;
+	text-align: center;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	background-color: white;
+  	color: black;
+  	border: 2px solid blue; /* Green */
+}
+
+#resetDiv button:hover {
+	background-color: blue; /* Green */
+	color: white;
+  }
+
+#colorDiv {
+	display: inline-block;
+}
+
+#switch-gravity {
+	vertical-align: middle;
+}
+
+#renderingSettings > div > span:first-child {
+	display: inline-block;
+	width: 100px;
+}
+#renderingSettings > div > span {
+	vertical-align: middle;
+}
