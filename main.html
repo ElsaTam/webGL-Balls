@@ -1,0 +1,144 @@
+<html>
+
+<head>
+	<title>WebGL - Canvas test</title>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+	<script type="text/javascript" src="utils/glMatrix.js"></script>
+	<script type="text/javascript" src="utils/Vector.js"></script>
+	<script type="text/javascript" src="utils/Matrix.js"></script>
+	<script type="text/javascript" src="utils/ColorGenerator.js"></script>
+
+	<script type="text/javascript" src="balls/AppBalls3D.js"></script>
+	<script type="text/javascript" src="balls/Ball3D.js"></script>
+	<script type="text/javascript" src="balls/Box3D.js"></script>
+
+	<script type="text/javascript" src="user/Camera.js"></script>
+	<script type="text/javascript" src="user/Joystick2D.js"></script>
+	<script type="text/javascript" src="user/Laser.js"></script>
+	<script type="text/javascript" src="user/LightSource.js"></script>
+	
+	<script type="text/javascript" src="callbacks.js"></script>
+	<script type="text/javascript" src="glCourseBasis.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+
+<body onload="startGL();">
+	<div id="resetDiv">
+		<button onclick="reset();">RESET</button>
+	</div>
+
+	<div id="content">
+		<div id="inputsDiv">
+			<div class="ctrlDiv">
+				<h3>World settings</h3>
+				<hr>
+
+				<label for="speedSlider">Speed (dt): <span id="speedValue"></span> sc</label>
+				<br>
+				<input type="range" min="0" max="0.003" step="0.0001" class="slider" id="speedSlider" oninput="speedChanged();">
+				<br><br>
+
+				<label for="elasticitySlider">Elasticity: <span id="elasticityValue"></span></label>
+				<br>
+				<input type="range" min="0" max="1" step="0.01" class="slider" id="elasticitySlider" oninput="elasticityChanged();">
+				<br><br>
+
+				<label for="lambdaSlider">Lambda: <span id="lambdaValue"></span></label>
+				<br>
+				<input type="range" min="0" max="5" step="0.1" class="slider" id="lambdaSlider" oninput="lambdaChanged();">
+			</div>
+
+			<div class="ctrlDiv">
+				<h3>Interactions</h3>
+				<hr>
+				<button class="blockBtn" onclick="addButtonClicked();">Balls + +</button>
+				<button class="blockBtn" onclick="removeButtonClicked();">Balls - -</button>
+				<button class="blockBtn" onclick="bounce();">Bounce</button>
+				<label>
+					Gravity from rotation
+					<input type="checkbox" onclick="gravityWithCamera();" id="switch-gravity">
+				</label>
+			</div>
+		</div>
+
+		<div id="mainDiv">
+			<canvas id="WebGL-test" width="800" height="600"></canvas>
+		</div>
+
+		<div id="rightDiv">
+			<div id="lightDiv" class="ctrlDiv">
+				<h3>Light</h3>
+				<hr>
+				<label for="rLightSlider">red: <span id="rLightValue"></span></label><br>
+				<input type="range" min="0" max="255" step="1" class="slider" id="rLightSlider" oninput="rLightChanged();">
+				<br>
+				<label for="gLightSlider">green: <span id="gLightValue"></span></label><br>
+				<input type="range" min="0" max="255" step="1" class="slider" id="gLightSlider" oninput="gLightChanged();">
+				<br>
+				<label for="bLightSlider">blue: <span id="bLightValue"></span></label><br>
+				<input type="range" min="0" max="255" step="1" class="slider" id="bLightSlider" oninput="bLightChanged();">
+
+				<br><br>
+
+				<label for="intensitySlider">Intensity: <span id="intensityValue"></span></label>
+				<br>
+				<input type="range" min="0.00" max="10" step="0.1" class="slider" id="intensitySlider" oninput="intensityChanged();">
+			</div>
+			<div id="joystickDiv" class="ctrlDiv">
+				<h3>Sphere control</h3>
+				<canvas id="WebGL-joystick" width="200" height="200"></canvas>
+			</div>
+		</div>
+		
+		<br><br>
+
+		<div class="ctrlDiv">
+			<h3>Rendering settings</h3>
+			<hr>
+			<div id="renderingSettings">
+				<div>
+					<span>BRDF:</span>
+					<span>
+						<button onclick="colorGradient();">Gradient</button>
+						<button onclick="colorBRDFLambert();">Lambertian BRDF</button>
+						<button onclick="colorBRDFCookTorrance();">Cook Torrance BRDF</button>
+						<button onclick="colorNormal();">Normals</button>
+						<button onclick="colorPosition();">Positions</button>
+						<button onclick="colorPosToEye();">Positions &rarr; Camera</button>
+						<button onclick="colorPosToLight();">Positions &rarr; Light source</button>
+					</span>
+				</div>
+				<div>
+					<span><label for="sigmaSlider">Sigma &times; <span id="sigmaValue"></span></label>:</span>
+					<span><input type="range" min="0.01" max="5" step="0.01" class="slider" id="sigmaSlider" oninput="sigmaChanged();"></span>
+				</div>
+				<div>
+					<span><label for="niSlider">Ni &times; <span id="niValue"></span></label>:</span>
+					<span><input type="range" min="1" max="5" step="0.01" class="slider" id="niSlider" oninput="niChanged();"></span>
+				</div>
+				<div>
+					<span>Color palette:</span>
+					<span>
+						<button onclick="colorBright();">Colorful</button>
+						<button onclick="colorPastel();">Pastel</button>
+						<button onclick="colorDark();">Dark</button>
+						<button onclick="colorLight();">Light</button>
+						<button onclick="colorRed();">Reds</button>
+						<button onclick="colorGreen();">Greens</button>
+						<button onclick="colorBlue();">Blues</button>
+						<button onclick="colorWarm();">Warm</button>
+						<button onclick="colorCold();">Cold</button>
+						<button onclick="colorGrey();">Greys</button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>
